@@ -1,6 +1,9 @@
 
 import 'dart:math';
 
+/// more efficient mechanism to pick K thing from N items -- should be O(N).
+/// use this if the # of inputs is unknown or large.
+///
 /// algorithm here https://en.wikipedia.org/wiki/Reservoir_sampling
 class ReservoirSampler {
   Random _random;
