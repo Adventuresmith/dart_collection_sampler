@@ -1,4 +1,3 @@
-import 'package:quiver/check.dart';
 
 import 'dart:math';
 
@@ -41,9 +40,8 @@ class ReservoirSampler {
         System.out.println(Arrays.toString(reservoir));
     }
    */
-  /// pick an item at random from the iterable
-  T pick<T>(Iterable<T> items) {
-    checkNotNull(items);
+  T pickN<T>(Iterable<T> items) {
+    if (items == null) throw new ArgumentError("items may not be null!");
     // use modulo in case random is a mock that's configured to return
     // a nextInt which is longer than the total # of items in the collection
     var index = _random.nextInt(items.length) % items.length;

@@ -1,4 +1,3 @@
-import 'package:quiver/check.dart';
 
 import 'dart:math';
 
@@ -12,7 +11,7 @@ class CollectionSampler {
 
   /// pick an item at random from the iterable
   T pick<T>(Iterable<T> items) {
-    checkNotNull(items);
+    if (items == null) throw new ArgumentError("items may not be null!");
     // use modulo in case random is a mock that's configured to return
     // a nextInt which is longer than the total # of items in the collection
     var index = _random.nextInt(items.length) % items.length;
@@ -22,7 +21,7 @@ class CollectionSampler {
 
   /// pick an value at random from the map
   V pickMap<K,V>(Map<K,V> itemMap) {
-    checkNotNull(itemMap);
+    if (itemMap == null) throw new ArgumentError("itemMap may not be null!");
     var keys = itemMap.keys;
     var index = _random.nextInt(keys.length) % keys.length;
 
@@ -35,7 +34,7 @@ class CollectionSampler {
   ///
   /// this creates a shallow copy of the list, shuffles it, then takes the first N items. not efficient.
   List<T> pickN<T>(Iterable<T> items, int n) {
-    checkNotNull(items);
+    if (items == null) throw new ArgumentError("items may not be null!");
     if (n <= 0)
       return [];
 
@@ -46,7 +45,7 @@ class CollectionSampler {
 
   /// pick N unique values from the map. will return at most itemMap.length items
   List<V> pickMapN<K,V>(Map<K,V> itemMap, int n) {
-    checkNotNull(itemMap);
+    if (itemMap == null) throw new ArgumentError("itemMap may not be null!");
     if (n <= 0)
       return [];
     var keys = itemMap.keys;
