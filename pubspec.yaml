@@ -10,6 +10,7 @@ environment:
 
 dependencies:
   dart_dice_parser: ">=0.1.1 <2.0.0"
+  quiver: ^0.26.0
 
 dev_dependencies:
   test: ^0.12.0
