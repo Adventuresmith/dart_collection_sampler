@@ -16,7 +16,7 @@ class ReservoirSampler {
   List<T> pickN<T>(Iterable<T> items, int k) {
     if (items == null) throw new ArgumentError("items may not be null!");
 
-    var reservoir = new List(k); // new list of length k
+    var reservoir = <T>[]; // new list of length k
 
     var ind = 0;
     var it = items.iterator;

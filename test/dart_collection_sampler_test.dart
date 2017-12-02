@@ -47,6 +47,20 @@ void main() {
       expect(sampler.pickN([0,1,2,3,4,5,6,7,8,9,10,11,12], 3), equals([0,2,3]));
     });
   });
+
+  group("reservoir sampler", () {
+    var mockRandom = new MockRandom();
+
+    setUp(() {
+      when(mockRandom.nextInt(argThat(inInclusiveRange(1, 1000)))).thenReturn(1);
+    });
+
+    test('pickN', () {
+      var sampler = new ReservoirSampler(mockRandom);
+      expect(sampler.pickN([0,1,2,3,4,5,6,7,8,9,10,11,12], 3), equals([0,12,2]));
+    });
+  });
+
   group("map sampler", () {
     var mockRandom = new MockRandom();
     var input = {
