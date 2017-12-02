@@ -1,6 +1,6 @@
 name: dart_collection_sampler
 description: a small library implementing methods to sample items from collections
-version: 0.1.0
+version: 0.2.0
 homepage: https://github.com/stevesea/dart_collection_sampler
 authors:
   - steve christensen <adventuresmith.rpg@gmail.com>
@@ -14,3 +14,4 @@ dependencies:
 dev_dependencies:
   test: ^0.12.0
   mockito: 2.2.0
+  args: ">=0.13.4 <2.0.0"

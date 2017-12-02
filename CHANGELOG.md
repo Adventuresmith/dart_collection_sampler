@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+
+- clean up all samplers to use reservoir sampling
+- add example code
+
 ## 0.1.0
 
 - fix up interfaces to use List, implement ReservoirSampler

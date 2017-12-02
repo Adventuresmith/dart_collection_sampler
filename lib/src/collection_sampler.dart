@@ -1,11 +1,10 @@
 
 import 'dart:math';
 
-/// ok to use if you've got a List
-class ListSampler {
+class CollectionSampler {
   Random _random;
 
-  ListSampler([Random r]) {
+  CollectionSampler([Random r]) {
     _random = r ?? new Random.secure();
   }
 
@@ -18,46 +17,57 @@ class ListSampler {
     return items.elementAt(index);
   }
 
-  /// pick N unique items from the list. will return at most items.length items
-  ///
-  /// this creates a shallow copy of the list, shuffles it, then takes the first N items.
-  Iterable<T> pickN<T>(List<T> items, int n) {
-    if (items == null) throw new ArgumentError("items may not be null!");
-    if (n <= 0)
-      return [];
-
-    var shallowCopy = new List.from(items);
-    shallowCopy.shuffle(_random);
-    return shallowCopy.take(n);
-  }
-}
-
-
-class MapSampler {
-  ListSampler _listSampler;
-
-  MapSampler([Random r]) {
-    _listSampler = new ListSampler(r);
-  }
-
   /// pick an value at random from the map
-  V pick<K,V>(Map<K,V> itemMap) {
+  V pickFromMap<K,V>(Map<K,V> itemMap) {
     if (itemMap == null) throw new ArgumentError("itemMap may not be null!");
 
-    return itemMap[_listSampler.pick(itemMap.keys.toList(growable: false))];
+    return itemMap[pick(itemMap.keys.toList(growable: false))];
+  }
+
+  /// pick N things from an Iterable using reservoir sampling. should be O(N).
+  ///
+  /// algorithm here https://en.wikipedia.org/wiki/Reservoir_sampling
+  List<T> pickN<T>(Iterable<T> items, int N) {
+    if (items == null) throw new ArgumentError("items may not be null!");
+
+    if (N <= 0)
+      return <T>[];
+
+    var reservoir = <T>[];
+
+    var ind = 0;
+    var it = items.iterator;
+    while (it.moveNext()) {
+      if (ind < N) {
+        // first N items, just add to reservoir
+        reservoir.add(it.current);
+      } else {
+        // pick random index from 0 to ind
+        int j = _random.nextInt(ind + 1);
+        // if randomly picked index is smaller than N,
+        // then replace the element present at the index
+        // with new element from iterable
+        if (j < N) {
+          reservoir[j] = it.current;
+        }
+      }
+      ind++;
+    }
+    return reservoir;
+  }
+
+  Iterable<V> pickNFromMap<K,V>(Map<K,V> itemMap, int n) {
+    return pickNFromMapAsMap(itemMap, n).values;
   }
 
   /// pick N unique values from the map. will return at most itemMap.length items
-  Map<K,V> pickNtoMap<K,V>(Map<K,V> itemMap, int n) {
+  Map<K,V> pickNFromMapAsMap<K,V>(Map<K,V> itemMap, int n) {
     if (itemMap == null) throw new ArgumentError("itemMap may not be null!");
 
     return new Map.fromIterable(
-      _listSampler.pickN(itemMap.keys.toList(growable: false), n),
+      pickN(itemMap.keys, n),
       key: (k) => k,
       value: (k) => itemMap[k]
     );
-  }
-  Iterable<V> pickN<K,V>(Map<K,V> itemMap, int n) {
-    return pickNtoMap(itemMap, n).values;
   }
 }
