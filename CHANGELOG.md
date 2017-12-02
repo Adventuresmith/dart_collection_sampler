@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- fix dumb comment in example
+
 ## 0.2.0
 
 - clean up all samplers to use reservoir sampling

@@ -6,7 +6,7 @@ import 'package:dart_collection_sampler/dart_collection_sampler.dart';
 main(List<String> arguments) {
 
   var argParser = new ArgParser()
-      ..addOption("num", abbr: "n", help: "items to pick from rest of thingies", defaultsTo: "1");
+      ..addOption("num", abbr: "n", help: "items to pick from rest of command line", defaultsTo: "1");
   
   var results = argParser.parse(arguments);
 
