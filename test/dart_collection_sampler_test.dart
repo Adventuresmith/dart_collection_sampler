@@ -68,11 +68,11 @@ void main() {
     });
     test('pickNFromMapAsMap', () {
       var sampler = new CollectionSampler(mockRandom);
-      expect(sampler.pickNFromMapAsMap(input, 3), equals({0: "a", 4: "e", 2: "c"}));
+      expect(sampler.pickUniqueNFromMapAsMap(input, 3), equals({0: "a", 4: "e", 2: "c"}));
     });
     test('pickNFromMap', () {
       var sampler = new CollectionSampler(mockRandom);
-      expect(sampler.pickNFromMap(input, 3), equals(["a", "e", "c"]));
+      expect(sampler.pickUniqueNFromMap(input, 3), equals(["a", "e", "c"]));
     });
   });
 }

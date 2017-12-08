@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0
+
+- clarify which selection methods return unique and non-unique
+
 ## 0.3.0
 
 - fix dumb comment in example
