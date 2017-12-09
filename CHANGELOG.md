@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.0
+
+- initialize reservoir size
+- clarify some details of reservoir sampling algorithm in method doc
+
 ## 0.4.0
 
 - clarify which selection methods return unique and non-unique

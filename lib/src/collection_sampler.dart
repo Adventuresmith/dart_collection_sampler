@@ -52,11 +52,23 @@ class CollectionSampler {
     }
   }
 
-  /// pick N unique things from an Iterable using reservoir sampling. should be O(N).
+  /// pick N unique elements from an Iterable using reservoir sampling. should be O(N).
+  /// 'unique' meaning no single position will be selected more than once. If the
+  /// incoming collection has repeated values, then you may have repeated values in
+  /// the sample.
   ///
-  /// algorithm here https://en.wikipedia.org/wiki/Reservoir_sampling
+  /// basic algorithm here https://en.wikipedia.org/wiki/Reservoir_sampling
+  ///
+  /// but, it's been modified to shuffle the initial reservoir -- the sample is
+  /// relatively big compared to the # of items, then order within the sample is
+  /// almost identical to the list.
+  ///
+  /// for example,
+  ///    picking 5 items from [1,2,3,4,5,6,7,8,9]
+  ///    could end up like    [1,6,3,4,5]
+  ///
   List<T> _reservoirSampling<T>(Iterable<T> items, int N) {
-    var reservoir = <T>[];
+    var reservoir = new List<T>(N);
 
     var shuffled = false;
     var ind = 0;
