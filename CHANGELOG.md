@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+
+- fix problem introduced by 0.5.0 changes for fixed-length reservoir
+
 ## 0.5.0
 
 - initialize reservoir size

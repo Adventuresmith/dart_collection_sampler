@@ -76,7 +76,7 @@ class CollectionSampler {
     while (it.moveNext()) {
       if (ind < N) {
         // first N items, just add to reservoir
-        reservoir.add(it.current);
+        reservoir[ind] = it.current;
       } else {
         if (!shuffled) {
           // if N is relatively 'big' compared to the size of the collection, then
