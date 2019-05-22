@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 class CollectionSampler {
@@ -28,18 +27,16 @@ class CollectionSampler {
   }
 
   /// pick an value at random from the map
-  V pickFromMap<K,V>(Map<K,V> itemMap) {
+  V pickFromMap<K, V>(Map<K, V> itemMap) {
     if (itemMap == null) throw new ArgumentError("itemMap may not be null!");
 
     return itemMap[pick(itemMap.keys.toList(growable: false))];
   }
 
-
   List<T> pickN<T>(Iterable<T> items, int N, {bool unique = true}) {
     if (items == null) throw new ArgumentError("items may not be null!");
 
-    if (N <= 0)
-      return <T>[];
+    if (N <= 0) return <T>[];
 
     if (unique) {
       return _reservoirSampling(items, N);
@@ -98,18 +95,14 @@ class CollectionSampler {
     return reservoir;
   }
 
-  Iterable<V> pickUniqueNFromMap<K,V>(Map<K,V> itemMap, int n) {
+  Iterable<V> pickUniqueNFromMap<K, V>(Map<K, V> itemMap, int n) {
     return pickUniqueNFromMapAsMap(itemMap, n).values;
   }
 
   /// pick N unique values from the map. will return at most itemMap.length items
-  Map<K,V> pickUniqueNFromMapAsMap<K,V>(Map<K,V> itemMap, int n) {
+  Map<K, V> pickUniqueNFromMapAsMap<K, V>(Map<K, V> itemMap, int n) {
     if (itemMap == null) throw new ArgumentError("itemMap may not be null!");
 
-    return new Map.fromIterable(
-      _reservoirSampling(itemMap.keys, n),
-      key: (k) => k,
-      value: (k) => itemMap[k]
-    );
+    return new Map.fromIterable(_reservoirSampling(itemMap.keys, n), key: (k) => k, value: (k) => itemMap[k]);
   }
 }

@@ -1,6 +1,6 @@
-import 'package:dart_dice_parser/dart_dice_parser.dart';
-
 import 'dart:math';
+
+import 'package:dart_dice_parser/dart_dice_parser.dart';
 
 /// sampler that picks item from a List using die-roll results
 ///

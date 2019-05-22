@@ -1,4 +1,3 @@
-
 library dart_collection_sampler;
 
 export 'src/collection_sampler.dart';
