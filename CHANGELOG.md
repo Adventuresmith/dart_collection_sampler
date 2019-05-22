@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.1
+
+update deps
+
 ## 0.6.0
 
 update to dart 2
