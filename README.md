@@ -1,4 +1,6 @@
 # dart_collection_sampler
+[![Pub Package](https://img.shields.io/pub/v/dart_collection_sampler.svg)](https://pub.dartlang.org/packages/dart_collection_sampler)
+
 
 a small library implementing methods to sample items from collections
 
@@ -14,7 +16,7 @@ import 'package:dart_collection_sampler/dart_collection_sampler.dart';
 
 main(List<String> arguments) {
 
-  var argParser = new ArgParser()
+  var argParser = ArgParser()
       ..addOption("num", abbr: "n", help: "items to pick from rest of command line", defaultsTo: "1");
 
   var results = argParser.parse(arguments);
