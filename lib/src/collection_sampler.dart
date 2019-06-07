@@ -1,9 +1,11 @@
 import 'dart:math';
 
+import 'package:dart_collection_sampler/src/reservoir_sampling.dart';
+
 /// Samples collections
 ///
 /// selecting N items from collections is done via Resevoir Sampling,
-/// see [CollectionSampler.reservoirSampling] for more details.
+/// see [reservoirSampling] for more details.
 class CollectionSampler {
   Random _random;
 
@@ -47,7 +49,7 @@ class CollectionSampler {
     if (N <= 0) return <T>[];
 
     if (unique) {
-      return reservoirSampling(items, N);
+      return reservoirSampling(items, N, _random);
     } else {
       if (items is List) {
         return _pickNonUnique(items, N);
@@ -55,49 +57,6 @@ class CollectionSampler {
         return _pickNonUnique(items.toList(growable: false), N);
       }
     }
-  }
-
-  /// pick N unique elements from an Iterable using reservoir sampling. should be O(N).
-  ///
-  /// 'unique' meaning no single position will be selected more than once. If the
-  /// incoming collection has repeated values, then you may have repeated values in
-  /// the sample.
-  ///
-  /// basic algorithm here https://en.wikipedia.org/wiki/Reservoir_sampling
-  ///
-  /// one change in this implementation is to shuffle the reservoir before returning
-  /// the results. if the sample is relatively big compared to the # of items, then
-  /// order within the sample is almost identical to the original list.
-  ///
-  /// for example,
-  ///    picking 5 items from [1,2,3,4,5,6,7,8,9]
-  ///    could end up like    [1,6,3,4,5]
-  ///
-  List<T> reservoirSampling<T>(Iterable<T> items, int N) {
-    var reservoir = List<T>(N);
-
-    var ind = 0;
-    var it = items.iterator;
-    // first N items, just add to reservoir
-    while (it.moveNext() && ind < N) {
-      reservoir[ind] = it.current;
-      ind++;
-    }
-    while (it.moveNext()) {
-      // pick random index from 0 to ind
-      var j = _random.nextInt(ind + 1);
-      // if randomly picked index is smaller than N,
-      // then replace the element present at the index
-      // with new element from iterable
-      if (j < N) {
-        reservoir[j] = it.current;
-      }
-      ind++;
-    }
-    // if N is relatively 'big' compared to the size of the collection, then
-    // the items are practically in-order as they are in the list.
-    reservoir.shuffle(_random);
-    return reservoir;
   }
 
   /// picks N items from Map (returning map values)
@@ -109,7 +68,7 @@ class CollectionSampler {
   Map<K, V> pickUniqueNFromMapAsMap<K, V>(Map<K, V> itemMap, int n) {
     if (itemMap == null) throw ArgumentError("itemMap may not be null!");
 
-    return Map.fromIterable(reservoirSampling(itemMap.keys, n),
+    return Map.fromIterable(reservoirSampling(itemMap.keys, n, _random),
         key: (k) => k, value: (k) => itemMap[k]);
   }
 }

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.5
+- move reservoir sampler to its own function outside of CollectionSampler
+
 ## 1.0.4
 - make code more idiomatic
 - changes to reservoir sampling algorithm
