@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+- make code more idiomatic
+- changes to reservoir sampling algorithm
+
 ## 1.0.3
 - more analysis cleanup
 

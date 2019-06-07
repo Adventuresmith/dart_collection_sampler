@@ -65,9 +65,9 @@ class CollectionSampler {
   ///
   /// basic algorithm here https://en.wikipedia.org/wiki/Reservoir_sampling
   ///
-  /// but, it's been modified to shuffle the initial reservoir -- the sample is
-  /// relatively big compared to the # of items, then order within the sample is
-  /// almost identical to the list.
+  /// one change in this implementation is to shuffle the reservoir before returning
+  /// the results. if the sample is relatively big compared to the # of items, then
+  /// order within the sample is almost identical to the original list.
   ///
   /// for example,
   ///    picking 5 items from [1,2,3,4,5,6,7,8,9]
@@ -76,31 +76,27 @@ class CollectionSampler {
   List<T> reservoirSampling<T>(Iterable<T> items, int N) {
     var reservoir = List<T>(N);
 
-    var shuffled = false;
     var ind = 0;
     var it = items.iterator;
+    // first N items, just add to reservoir
+    while (it.moveNext() && ind < N) {
+      reservoir[ind] = it.current;
+      ind++;
+    }
     while (it.moveNext()) {
-      if (ind < N) {
-        // first N items, just add to reservoir
-        reservoir[ind] = it.current;
-      } else {
-        if (!shuffled) {
-          // if N is relatively 'big' compared to the size of the collection, then
-          // the items are practically in-order as they are in the list.
-          reservoir.shuffle(_random);
-          shuffled = true;
-        }
-        // pick random index from 0 to ind
-        var j = _random.nextInt(ind + 1);
-        // if randomly picked index is smaller than N,
-        // then replace the element present at the index
-        // with new element from iterable
-        if (j < N) {
-          reservoir[j] = it.current;
-        }
+      // pick random index from 0 to ind
+      var j = _random.nextInt(ind + 1);
+      // if randomly picked index is smaller than N,
+      // then replace the element present at the index
+      // with new element from iterable
+      if (j < N) {
+        reservoir[j] = it.current;
       }
       ind++;
     }
+    // if N is relatively 'big' compared to the size of the collection, then
+    // the items are practically in-order as they are in the list.
+    reservoir.shuffle(_random);
     return reservoir;
   }
 
