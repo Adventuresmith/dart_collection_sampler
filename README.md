@@ -16,7 +16,7 @@ main(List<String> arguments) {
 
   var argParser = new ArgParser()
       ..addOption("num", abbr: "n", help: "items to pick from rest of command line", defaultsTo: "1");
-  
+
   var results = argParser.parse(arguments);
 
   exit(
@@ -38,7 +38,6 @@ int roll(int n, List<String> items) {
   }
   return 0;
 }
-
 
 
 ```
