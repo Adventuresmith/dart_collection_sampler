@@ -1,3 +1,6 @@
+/// Library helps sample 1 (or N) items from collections
+/// 
+
 library dart_collection_sampler;
 
 export 'src/collection_sampler.dart';

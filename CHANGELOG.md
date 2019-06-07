@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0
+- upgrade deps, including to sdk 2.2.2
+- clean up analysis probs
+
 ## 0.6.1
 
 update deps
