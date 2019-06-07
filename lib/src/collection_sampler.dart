@@ -39,6 +39,8 @@ class CollectionSampler {
   }
 
   /// Picks N items from iterable, optionally make it unique.
+  ///
+  /// if unique, uses [reservoirSampling].
   List<T> pickN<T>(Iterable<T> items, int N, {bool unique = true}) {
     if (items == null) throw ArgumentError("items may not be null!");
 
