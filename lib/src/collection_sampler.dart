@@ -2,7 +2,8 @@ import 'dart:math';
 
 /// Samples collections
 ///
-///
+/// selecting N items from collections is done via Resevoir Sampling,
+/// see [CollectionSampler.reservoirSampling] for more details.
 class CollectionSampler {
   Random _random;
 
