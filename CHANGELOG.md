@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.6
+- update dep on dice-parser to avoid dart sdk 2.3.0
+
 ## 1.0.5
 - move reservoir sampler to its own function outside of CollectionSampler
 
