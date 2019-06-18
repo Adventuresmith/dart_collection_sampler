@@ -1,6 +1,6 @@
 # dart_collection_sampler
 [![Pub Package](https://img.shields.io/pub/v/dart_collection_sampler.svg)](https://pub.dartlang.org/packages/dart_collection_sampler)
-
+[![CircleCI](https://circleci.com/gh/stevesea/dart_collection_sampler.svg?style=svg)](https://circleci.com/gh/stevesea/dart_collection_sampler)
 
 a small library implementing methods to sample items from collections
 
