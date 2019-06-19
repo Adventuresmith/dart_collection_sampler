@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.7
+- update dep on dice-parser
+
 ## 1.0.6
 - update dep on dice-parser to avoid dart sdk 2.3.0
 
