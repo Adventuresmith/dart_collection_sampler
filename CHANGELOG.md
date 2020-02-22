@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.1
+- dart-dice-parser upgrade
+
 ## 2.0.0
 - library upgrades including bumping sdk to 2.7
 
