@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.0
+- library upgrades including bumping sdk to 2.7
+
 ## 1.0.7
 - update dep on dice-parser
 
