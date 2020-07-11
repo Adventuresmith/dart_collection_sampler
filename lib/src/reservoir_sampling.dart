@@ -10,7 +10,8 @@ import 'dart:math';
 ///
 /// One change for this implementation is to shuffle the results before returning.
 /// If the sample is relatively big compared to the # of items, then
-/// order within the sample is almost identical to the original list.
+/// order within the sample is almost identical to the original list --
+/// by shuffling the result the result will look less ordered.
 ///
 /// for example,
 /// ```
