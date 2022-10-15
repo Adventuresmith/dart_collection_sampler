@@ -20,7 +20,7 @@ import 'dart:math';
 /// ```
 ///
 List<T> reservoirSampling<T>(Iterable<T> items, int N, Random random) {
-  var reservoir = List<T>(N);
+  final reservoir = List<T>(N);
 
   var ind = 0;
   var it = items.iterator;
