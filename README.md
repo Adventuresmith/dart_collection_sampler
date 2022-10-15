@@ -11,42 +11,20 @@ a small library implementing methods to sample items from collections
 
 A simple usage example:
 
-```$dart
-import 'package:args/args.dart';
+```dart
 
-import 'dart:io';
-import 'package:dart_collection_sampler/dart_collection_sampler.dart';
-
-main(List<String> arguments) {
-
-  var argParser = ArgParser()
-      ..addOption("num", abbr: "n", help: "items to pick from rest of command line", defaultsTo: "1");
-
-  var results = argParser.parse(arguments);
-
-  exit(
-    roll(int.parse(results["num"]), results.rest)
-  );
-}
-
-int roll(int n, List<String> items) {
-  if (items.isEmpty) {
-    print ("you must supply one or more items as input");
-    return 1;
-  }
-  print ("Picking $n from $items\n");
+void deal(int n, List<String> items, {required bool unique}) {
+  stdout.writeln("Picking $n from $items (unique: $unique)\n");
 
   if (n == 1) {
-    print ("Selected item: ${new CollectionSampler().pick(items)}");
+    stdout.writeln("Selected item: ${CollectionSampler().pick(items)}");
   } else {
-    print ("Selected items: ${new CollectionSampler().pickN(items, n)}");
+    stdout.writeln(
+      "Selected items: ${CollectionSampler().pickN(items, n, unique: unique)}",
+    );
   }
-  return 0;
 }
-
-
 ```
-
 
 ## Features and bugs
 
