@@ -1,5 +1,7 @@
 # dart_collection_sampler
 [![Pub Package](https://img.shields.io/pub/v/dart_collection_sampler.svg)](https://pub.dartlang.org/packages/dart_collection_sampler)
+[![Dart](https://github.com/stevesea/dart_collection_sampler/actions/workflows/dart.yml/badge.svg)](https://github.com/stevesea/dart_collection_sampler/actions/workflows/dart.yml)
+[![codecov](https://codecov.io/gh/stevesea/dart_collection_sampler/branch/master/graph/badge.svg?token=77209PUWLS)](https://codecov.io/gh/stevesea/dart_collection_sampler)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 
