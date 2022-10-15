@@ -1,81 +1,52 @@
 import 'dart:math';
 
 import 'package:dart_collection_sampler/dart_collection_sampler.dart';
-import 'package:dart_dice_parser/dart_dice_parser.dart';
-
 import 'package:test/test.dart';
-import 'package:mockito/mockito.dart';
-
-class MockRandom extends Mock implements Random {}
 
 void main() {
-  setUp(() async {});
-  group('dice sampler', () {
-    DiceParser diceParser;
-    setUp(() {
-      var mockRandom = MockRandom();
-      diceParser = DiceParser(diceRoller: DiceRoller(mockRandom));
+  late Random seededRandom;
+  setUp(() async {
+    // first 100 seeded rolls for d6
+    // [6, 2, 1, 5, 3, 5, 1, 4, 6, 5, 6, 4, 2, 4, 2, 3, 5, 1, 1, 2, 4, 1, 6, 2, 2, 5, 6, 3, 1, 3, 6, 1, 2, 3, 6, 2, 1, 1, 1, 3, 1, 2, 3, 3, 6, 2, 5, 4, 3, 4, 1, 5, 4, 4, 2, 6, 5, 4, 6, 2, 3, 1, 4, 5, 3, 2, 2, 6, 6, 4, 4, 2, 6, 2, 5, 3, 3, 4, 4, 2, 2, 4, 3, 2, 6, 6, 4, 6, 4, 4, 3, 1, 4, 2, 2, 4, 3, 3, 1, 3]
 
-      when(mockRandom.nextInt(argThat(inInclusiveRange(1, 1000))))
-          .thenReturn(1);
-    });
-
-    test('sample ints', () {
-      var sampler = DiceSampler(diceParser);
-      // nextInt returns 1, dice roller adds 1... 2+2=4
-      expect(sampler.pick("2d6", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
-          equals(4));
-    });
-    test('sample strings', () {
-      var sampler = DiceSampler(diceParser);
-      expect(sampler.pick("2d6", ["a", "b", "c", "d", "e"]), equals("d"));
-    });
+    seededRandom = Random(1234);
   });
 
   group("list sampler", () {
-    MockRandom mockRandom;
-
-    setUp(() {
-      mockRandom = MockRandom();
-      when(mockRandom.nextInt(argThat(inInclusiveRange(1, 1000))))
-          .thenReturn(1);
-    });
-
     test('pick int', () {
-      var sampler = CollectionSampler(mockRandom);
+      final sampler = CollectionSampler(seededRandom);
       expect(
-          sampler.pick([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]), equals(1));
+        sampler.pick([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
+        equals(1),
+      );
     });
     test('pickN', () {
-      var sampler = CollectionSampler(mockRandom);
-      expect(sampler.pickN([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 3),
-          equals([0, 2, 12]));
+      final sampler = CollectionSampler(seededRandom);
+
+      expect(
+        sampler.pickN([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 3),
+        equals([6, 2, 11]),
+      );
     });
   });
 
   group("map sampler", () {
-    var input = {0: "a", 1: "b", 2: "c", 3: "d", 4: "e"};
-
-    MockRandom mockRandom;
-
-    setUp(() {
-      mockRandom = MockRandom();
-      when(mockRandom.nextInt(argThat(inInclusiveRange(1, 1000))))
-          .thenReturn(1);
-    });
+    final input = {0: "a", 1: "b", 2: "c", 3: "d", 4: "e"};
 
     test('pick from map', () {
-      var sampler = CollectionSampler(mockRandom);
-      expect(sampler.pickFromMap(input), equals('b'));
+      final sampler = CollectionSampler(seededRandom);
+      expect(sampler.pickFromMap(input), equals('a'));
     });
     test('pickNFromMapAsMap', () {
-      var sampler = CollectionSampler(mockRandom);
-      expect(sampler.pickUniqueNFromMapAsMap(input, 3),
-          equals({0: "a", 2: "c", 4: "e"}));
+      final sampler = CollectionSampler(seededRandom);
+      expect(
+        sampler.pickUniqueNFromMapAsMap(input, 3),
+        equals({2: 'c', 0: 'a', 1: 'b'}),
+      );
     });
     test('pickNFromMap', () {
-      var sampler = CollectionSampler(mockRandom);
-      expect(sampler.pickUniqueNFromMap(input, 3), equals(["a", "c", "e"]));
+      final sampler = CollectionSampler(seededRandom);
+      expect(sampler.pickUniqueNFromMap(input, 3), equals(["c", "a", "b"]));
     });
   });
 }

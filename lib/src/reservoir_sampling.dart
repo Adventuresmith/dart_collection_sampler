@@ -8,7 +8,7 @@ import 'dart:math';
 ///
 /// The basic algorithm is described here https://en.wikipedia.org/wiki/Reservoir_sampling
 ///
-/// One change for this implementation is to shuffle the results before returning.
+/// One change in this implementation is shuffling the results before returning.
 /// If the sample is relatively big compared to the # of items, then
 /// order within the sample is almost identical to the original list --
 /// by shuffling the result the result will look less ordered.
@@ -20,10 +20,10 @@ import 'dart:math';
 /// ```
 ///
 List<T> reservoirSampling<T>(Iterable<T> items, int N, Random random) {
-  final reservoir = List<T>(N);
+  final List<T> reservoir = List<T>.filled(N, items.first);
 
   var ind = 0;
-  var it = items.iterator;
+  final it = items.iterator;
   // first N items, just add to reservoir
   while (it.moveNext() && ind < N) {
     reservoir[ind] = it.current;
@@ -31,7 +31,7 @@ List<T> reservoirSampling<T>(Iterable<T> items, int N, Random random) {
   }
   while (it.moveNext()) {
     // pick random index from 0 to ind
-    var j = random.nextInt(ind + 1);
+    final j = random.nextInt(ind + 1);
     // if randomly picked index is smaller than N,
     // then replace the element present at the index
     // with new element from iterable
