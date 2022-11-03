@@ -17,7 +17,7 @@ class DiceSampler {
   T pick<T>(String diceStr, List<T> items) {
     final dice = DiceExpression.create(diceStr, _random);
     // dice are 1-based, list indexes are 0-based so subtract 1.
-    var ind = dice.roll() - 1;
+    var ind = dice.roll().total - 1;
     // then clamp the dice roll to the acceptable range
     ind = min(items.length - 1, ind);
     ind = max(0, ind);

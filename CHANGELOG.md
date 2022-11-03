@@ -1,4 +1,5 @@
-
+# 3.0.1
+- upgrade to dart_dice_parser 5.1.2.
 
 # 3.0.0 
 - update for null safety and dep upgrades 
