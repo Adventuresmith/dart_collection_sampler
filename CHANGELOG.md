@@ -1,3 +1,6 @@
+# 3.0.2
+- transfer repository to Adventuresmith org
+
 # 3.0.1
 - upgrade to dart_dice_parser 5.1.2.
 
